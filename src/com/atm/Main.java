@@ -29,7 +29,7 @@ public class Main {
             System.out.println();
 
             if (choice == 1) {
-                System.out.println("Login selected.");
+                login();
             } else if (choice == 2) {
                 createAccount();
             } else if (choice == 3) {
@@ -81,5 +81,76 @@ public class Main {
         }
 
         return false;
+    }
+
+    static void login() {
+
+        System.out.print("Enter Account Number: ");
+        long accountNumber = sc.nextLong();
+
+        Account account = findAccount(accountNumber);
+
+        if (account == null) {
+            System.out.println("Account not found.");
+            return;
+        }
+
+        for (int attempts = 1; attempts <= 3; attempts++) {
+
+            System.out.print("Enter PIN: ");
+            int pin = sc.nextInt();
+
+            if (pin == account.getPin()) {
+                System.out.println("Login successful!");
+                atmMenu(account);
+                return;
+            }
+
+            System.out.println("Incorrect PIN.");
+
+            if (attempts < 3) {
+                System.out.println("Attempts remaining: " + (3 - attempts));
+            }
+        }
+
+        System.out.println("Too many incorrect attempts.");
+    }
+
+    static Account findAccount(long accountNumber) {
+
+        for (Account account : accounts) {
+            if (account.getAccountNumber() == accountNumber) {
+                return account;
+            }
+        }
+
+        return null;
+    }
+
+    static void atmMenu(Account account) {
+
+        while (true) {
+
+            System.out.println();
+            System.out.println("========== ATM MENU ==========");
+            System.out.println();
+            System.out.println("1. Check Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Withdraw Money");
+            System.out.println("4. Transaction History");
+            System.out.println("5. Change PIN");
+            System.out.println("6. Logout");
+            System.out.println();
+            System.out.print("Choose option: ");
+
+            int choice = sc.nextInt();
+
+            if (choice == 6) {
+                System.out.println("Logged out successfully.");
+                return;
+            }
+
+            System.out.println("This option is not available yet.");
+        }
     }
 }
