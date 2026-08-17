@@ -145,12 +145,14 @@ public class Main {
 
             int choice = sc.nextInt();
 
-            if (choice == 6) {
+            if (choice == 1) {
+                System.out.println("Current Balance: ₹" + account.getBalance());
+            } else if (choice == 6) {
                 System.out.println("Logged out successfully.");
                 return;
+            } else {
+                System.out.println("This option is not available yet.");
             }
-
-            System.out.println("This option is not available yet.");
         }
     }
 }
