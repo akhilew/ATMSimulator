@@ -146,13 +146,43 @@ public class Main {
             int choice = sc.nextInt();
 
             if (choice == 1) {
+
                 System.out.println("Current Balance: ₹" + account.getBalance());
+
+            } else if (choice == 2) {
+
+                depositMoney(account);
+
             } else if (choice == 6) {
+
                 System.out.println("Logged out successfully.");
                 return;
+
             } else {
+
                 System.out.println("This option is not available yet.");
             }
         }
+    }
+
+    static void depositMoney(Account account) {
+
+        System.out.print("Enter deposit amount: ₹");
+        long amount = sc.nextLong();
+
+        if (amount <= 0) {
+            System.out.println("Amount must be greater than ₹0.");
+            return;
+        }
+
+        if (amount > 100000) {
+            System.out.println("Maximum deposit is ₹100000 per transaction.");
+            return;
+        }
+
+        account.deposit(amount);
+
+        System.out.println("₹" + amount + " deposited successfully.");
+        System.out.println("Current Balance: ₹" + account.getBalance());
     }
 }
