@@ -153,6 +153,10 @@ public class Main {
 
                 depositMoney(account);
 
+            } else if (choice == 3) {
+
+                withdrawMoney(account);
+
             } else if (choice == 6) {
 
                 System.out.println("Logged out successfully.");
@@ -183,6 +187,30 @@ public class Main {
         account.deposit(amount);
 
         System.out.println("₹" + amount + " deposited successfully.");
+        System.out.println("Current Balance: ₹" + account.getBalance());
+    }
+
+    static void withdrawMoney(Account account) {
+
+        System.out.print("Enter withdrawal amount: ₹");
+        long amount = sc.nextLong();
+
+        if (amount <= 0) {
+            System.out.println("Amount must be greater than ₹0.");
+            return;
+        }
+
+        if (amount > 100000) {
+            System.out.println("Maximum withdrawal is ₹100000 per transaction.");
+            return;
+        }
+
+        if (!account.withdraw(amount)) {
+            System.out.println("Insufficient balance.");
+            return;
+        }
+
+        System.out.println("₹" + amount + " withdrawn successfully.");
         System.out.println("Current Balance: ₹" + account.getBalance());
     }
 }

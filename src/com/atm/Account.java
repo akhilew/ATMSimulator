@@ -27,4 +27,13 @@ public class Account {
     public void deposit(long amount) {
         balance += amount;
     }
+
+    public boolean withdraw(long amount) {
+        if (amount > balance) {
+            return false;
+        }
+
+        balance -= amount;
+        return true;
+    }
 }
