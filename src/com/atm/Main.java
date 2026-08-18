@@ -161,6 +161,10 @@ public class Main {
 
                 showTransactionHistory(account);
 
+            } else if (choice == 5) {
+
+                changePin(account);
+
             } else if (choice == 6) {
 
                 System.out.println("Logged out successfully.");
@@ -231,5 +235,41 @@ public class Main {
         for (int i = 0; i < account.getTransactions().size(); i++) {
             System.out.println((i + 1) + ". " + account.getTransactions().get(i));
         }
+    }
+
+    static void changePin(Account account) {
+
+        System.out.print("Enter current PIN: ");
+        int currentPin = sc.nextInt();
+
+        if (currentPin != account.getPin()) {
+            System.out.println("Incorrect current PIN.");
+            return;
+        }
+
+        System.out.print("Enter new PIN: ");
+        int newPin = sc.nextInt();
+
+        if (newPin < 1000 || newPin > 9999) {
+            System.out.println("PIN must be exactly 4 digits.");
+            return;
+        }
+
+        if (newPin == currentPin) {
+            System.out.println("New PIN must be different from current PIN.");
+            return;
+        }
+
+        System.out.print("Confirm new PIN: ");
+        int confirmPin = sc.nextInt();
+
+        if (newPin != confirmPin) {
+            System.out.println("PIN confirmation does not match.");
+            return;
+        }
+
+        account.changePin(newPin);
+
+        System.out.println("PIN changed successfully.");
     }
 }

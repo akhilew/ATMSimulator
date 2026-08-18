@@ -32,6 +32,10 @@ public class Account {
         return transactions;
     }
 
+    public void changePin(int newPin) {
+        pin = newPin;
+    }
+
     public void deposit(long amount) {
         balance += amount;
         transactions.add("Deposited ₹" + amount);
