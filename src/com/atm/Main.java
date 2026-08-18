@@ -24,7 +24,7 @@ public class Main {
             System.out.println();
             System.out.print("Choose option: ");
 
-            int choice = sc.nextInt();
+            int choice = readInt();
 
             System.out.println();
 
@@ -36,7 +36,7 @@ public class Main {
                 System.out.println("Thank you for using the ATM.");
                 break;
             } else {
-                System.out.println("Invalid option.");
+                System.out.println("Invalid option. Please choose 1, 2 or 3.");
             }
 
             System.out.println();
@@ -86,7 +86,7 @@ public class Main {
     static void login() {
 
         System.out.print("Enter Account Number: ");
-        long accountNumber = sc.nextLong();
+        long accountNumber = readLong();
 
         Account account = findAccount(accountNumber);
 
@@ -98,7 +98,7 @@ public class Main {
         for (int attempts = 1; attempts <= 3; attempts++) {
 
             System.out.print("Enter PIN: ");
-            int pin = sc.nextInt();
+            int pin = readInt();
 
             if (pin == account.getPin()) {
                 System.out.println("Login successful!");
@@ -143,7 +143,7 @@ public class Main {
             System.out.println();
             System.out.print("Choose option: ");
 
-            int choice = sc.nextInt();
+            int choice = readInt();
 
             if (choice == 1) {
 
@@ -172,7 +172,7 @@ public class Main {
 
             } else {
 
-                System.out.println("This option is not available yet.");
+                System.out.println("Invalid option. Please choose 1 to 6.");
             }
         }
     }
@@ -180,7 +180,7 @@ public class Main {
     static void depositMoney(Account account) {
 
         System.out.print("Enter deposit amount: ₹");
-        long amount = sc.nextLong();
+        long amount = readLong();
 
         if (amount <= 0) {
             System.out.println("Amount must be greater than ₹0.");
@@ -201,7 +201,7 @@ public class Main {
     static void withdrawMoney(Account account) {
 
         System.out.print("Enter withdrawal amount: ₹");
-        long amount = sc.nextLong();
+        long amount = readLong();
 
         if (amount <= 0) {
             System.out.println("Amount must be greater than ₹0.");
@@ -240,7 +240,7 @@ public class Main {
     static void changePin(Account account) {
 
         System.out.print("Enter current PIN: ");
-        int currentPin = sc.nextInt();
+        int currentPin = readInt();
 
         if (currentPin != account.getPin()) {
             System.out.println("Incorrect current PIN.");
@@ -248,7 +248,7 @@ public class Main {
         }
 
         System.out.print("Enter new PIN: ");
-        int newPin = sc.nextInt();
+        int newPin = readInt();
 
         if (newPin < 1000 || newPin > 9999) {
             System.out.println("PIN must be exactly 4 digits.");
@@ -261,7 +261,7 @@ public class Main {
         }
 
         System.out.print("Confirm new PIN: ");
-        int confirmPin = sc.nextInt();
+        int confirmPin = readInt();
 
         if (newPin != confirmPin) {
             System.out.println("PIN confirmation does not match.");
@@ -271,5 +271,25 @@ public class Main {
         account.changePin(newPin);
 
         System.out.println("PIN changed successfully.");
+    }
+
+    static int readInt() {
+
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a number.");
+            sc.next();
+        }
+
+        return sc.nextInt();
+    }
+
+    static long readLong() {
+
+        while (!sc.hasNextLong()) {
+            System.out.println("Invalid input. Please enter a number.");
+            sc.next();
+        }
+
+        return sc.nextLong();
     }
 }
