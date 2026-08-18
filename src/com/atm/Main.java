@@ -157,6 +157,10 @@ public class Main {
 
                 withdrawMoney(account);
 
+            } else if (choice == 4) {
+
+                showTransactionHistory(account);
+
             } else if (choice == 6) {
 
                 System.out.println("Logged out successfully.");
@@ -212,5 +216,20 @@ public class Main {
 
         System.out.println("₹" + amount + " withdrawn successfully.");
         System.out.println("Current Balance: ₹" + account.getBalance());
+    }
+
+    static void showTransactionHistory(Account account) {
+
+        System.out.println();
+        System.out.println("========== TRANSACTION HISTORY ==========");
+
+        if (account.getTransactions().isEmpty()) {
+            System.out.println("No transactions found.");
+            return;
+        }
+
+        for (int i = 0; i < account.getTransactions().size(); i++) {
+            System.out.println((i + 1) + ". " + account.getTransactions().get(i));
+        }
     }
 }
