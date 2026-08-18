@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Account {
 
     private long accountNumber;
-    private int pin;
+    private String pin;
     private long balance;
     private ArrayList<String> transactions;
 
-    public Account(long accountNumber, int pin) {
+    public Account(long accountNumber, String pin) {
         this.accountNumber = accountNumber;
         this.pin = pin;
         this.balance = 0;
@@ -20,7 +20,7 @@ public class Account {
         return accountNumber;
     }
 
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
 
@@ -32,7 +32,7 @@ public class Account {
         return transactions;
     }
 
-    public void changePin(int newPin) {
+    public void changePin(String newPin) {
         pin = newPin;
     }
 

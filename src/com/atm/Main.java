@@ -47,7 +47,7 @@ public class Main {
 
     static void createAccount() {
 
-        int pin = generatePin();
+        String pin = generatePin();
 
         Account account = new Account(nextAccountNumber, pin);
         accounts.add(account);
@@ -61,26 +61,11 @@ public class Main {
         nextAccountNumber++;
     }
 
-    static int generatePin() {
+    static String generatePin() {
 
-        int pin;
+        int number = random.nextInt(10000);
 
-        do {
-            pin = 1000 + random.nextInt(9000);
-        } while (pinExists(pin));
-
-        return pin;
-    }
-
-    static boolean pinExists(int pin) {
-
-        for (Account account : accounts) {
-            if (account.getPin() == pin) {
-                return true;
-            }
-        }
-
-        return false;
+        return String.format("%04d", number);
     }
 
     static void login() {
@@ -98,9 +83,9 @@ public class Main {
         for (int attempts = 1; attempts <= 3; attempts++) {
 
             System.out.print("Enter PIN: ");
-            int pin = readInt();
+            String pin = readPin();
 
-            if (pin == account.getPin()) {
+            if (pin.equals(account.getPin())) {
                 System.out.println("Login successful!");
                 atmMenu(account);
                 return;
@@ -240,30 +225,25 @@ public class Main {
     static void changePin(Account account) {
 
         System.out.print("Enter current PIN: ");
-        int currentPin = readInt();
+        String currentPin = readPin();
 
-        if (currentPin != account.getPin()) {
+        if (!currentPin.equals(account.getPin())) {
             System.out.println("Incorrect current PIN.");
             return;
         }
 
         System.out.print("Enter new PIN: ");
-        int newPin = readInt();
+        String newPin = readPin();
 
-        if (newPin < 1000 || newPin > 9999) {
-            System.out.println("PIN must be exactly 4 digits.");
-            return;
-        }
-
-        if (newPin == currentPin) {
+        if (newPin.equals(currentPin)) {
             System.out.println("New PIN must be different from current PIN.");
             return;
         }
 
         System.out.print("Confirm new PIN: ");
-        int confirmPin = readInt();
+        String confirmPin = readPin();
 
-        if (newPin != confirmPin) {
+        if (!newPin.equals(confirmPin)) {
             System.out.println("PIN confirmation does not match.");
             return;
         }
@@ -271,6 +251,21 @@ public class Main {
         account.changePin(newPin);
 
         System.out.println("PIN changed successfully.");
+    }
+
+    static String readPin() {
+
+        while (true) {
+
+            String pin = sc.next();
+
+            if (pin.matches("\\d{4}")) {
+                return pin;
+            }
+
+            System.out.println("PIN must be exactly 4 digits.");
+            System.out.print("Enter PIN: ");
+        }
     }
 
     static int readInt() {
