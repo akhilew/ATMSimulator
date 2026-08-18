@@ -193,6 +193,11 @@ public class Main {
             return;
         }
 
+        if (amount % 100 != 0) {
+            System.out.println("Withdrawal amount must be a multiple of ₹100.");
+            return;
+        }
+
         if (amount > 100000) {
             System.out.println("Maximum withdrawal is ₹100000 per transaction.");
             return;
