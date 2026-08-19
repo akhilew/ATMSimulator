@@ -1,5 +1,7 @@
 package com.atm;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Account {
@@ -8,6 +10,9 @@ public class Account {
     private String pin;
     private long balance;
     private ArrayList<String> transactions;
+
+    private DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     public Account(long accountNumber, String pin) {
         this.accountNumber = accountNumber;
@@ -38,7 +43,12 @@ public class Account {
 
     public void deposit(long amount) {
         balance += amount;
-        transactions.add("Deposited ₹" + amount);
+
+        String dateTime = LocalDateTime.now().format(formatter);
+
+        transactions.add("Deposited ₹" + amount
+                + " | Balance: ₹" + balance
+                + " | " + dateTime);
     }
 
     public boolean withdraw(long amount) {
@@ -47,7 +57,13 @@ public class Account {
         }
 
         balance -= amount;
-        transactions.add("Withdrawn ₹" + amount);
+
+        String dateTime = LocalDateTime.now().format(formatter);
+
+        transactions.add("Withdrawn ₹" + amount
+                + " | Balance: ₹" + balance
+                + " | " + dateTime);
+
         return true;
     }
 }
